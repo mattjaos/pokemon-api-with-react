@@ -19,6 +19,7 @@ module.exports = {
     ],
     semi: "error",
     quotes: ["error", "double"],
-    "jsx-quotes": ["error", "prefer-double"]
+    "jsx-quotes": ["error", "prefer-double"],
+    "react/prop-types": "off"
   }
 };
