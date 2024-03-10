@@ -15,11 +15,19 @@ export default function SearchPokemon() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (query.length < 1) {
+        throw new Error("Please enter a Pokemon name or ID.");
+      }
+
       const response = await fetch(`${pokeApi}${query}`);
       const json = await response.json();
       setResult(json);
     } catch (error) {
-      setResult("No Pokemon found! Please search again");
+      if (query.length < 1) {
+        setResult("Please enter a Pokemon name or ID.");
+      } else {
+        setResult("No Pokemon found! Please search again.");
+      }
     }
   };
 
