@@ -10,3 +10,8 @@
   - height (cm)
   - weight (kg)
   - type(s)
+- Example PokeAPI URLs for `Pikachu`:
+  - ID:  
+    https://pokeapi.co/api/v2/pokemon/25
+  - Name:  
+    https://pokeapi.co/api/v2/pokemon/pikachu

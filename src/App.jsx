@@ -1,4 +1,4 @@
-import DisplayPokemon from "./components/DisplayPokemon";
+import SearchPokemon from "./components/SearchPokemon";
 // prompt:
 // https://pokeapi.co/
 // Display a pokemon by ID or name
@@ -15,7 +15,8 @@ import DisplayPokemon from "./components/DisplayPokemon";
 export default function App() {
   return (
     <div className="app">
-      <DisplayPokemon />
+      <h1>Find Pokemon</h1>
+      <SearchPokemon />
     </div>
   );
 }
