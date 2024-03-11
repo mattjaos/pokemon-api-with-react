@@ -5,15 +5,19 @@ import GetPokemon from "./GetPokemon";
 export default function SearchPokemon() {
   const [query, setQuery] = useState("");
   const [result, setResult] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
 
   const handleQuery = (e) => {
     const { value } = e.target;
     setQuery(value);
+    setIsSubmit(false);
   };
 
   const debouncedFetch = useDebounce(async () => {
+    if (!isSubmit) return;
+
     try {
       if (query.length < 1) {
         throw new Error("Please enter a Pokemon name or ID.");
@@ -30,12 +34,18 @@ export default function SearchPokemon() {
       } else {
         setResult("No Pokemon found! Please search again.");
       }
+    } finally {
+      setIsSubmit(false);
     }
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    debouncedFetch();
+    setIsSubmit(true);
+
+    if (typeof debouncedFetch === "function") {
+      debouncedFetch();
+    }
   };
 
   return (
