@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { useDebounce } from "../hooks/useDebounce";
+import { useDebounce } from "../hooks/useDebounce";
 import GetPokemon from "./GetPokemon";
 
 export default function SearchPokemon() {
@@ -13,8 +13,7 @@ export default function SearchPokemon() {
     setQuery(value.toLowerCase().trim());
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const debouncedFetch = useDebounce(async () => {
     try {
       if (query.length < 1) {
         throw new Error("Please enter a Pokemon name or ID.");
@@ -30,6 +29,11 @@ export default function SearchPokemon() {
         setResult("No Pokemon found! Please search again.");
       }
     }
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    debouncedFetch();
   };
 
   return (
