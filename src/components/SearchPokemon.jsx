@@ -35,10 +35,16 @@ export default function SearchPokemon() {
     <>
       <div>
         <form onSubmit={handleSubmit}>
-          <label>
+          <label htmlFor="pokemon_name_or_id">
             <p>Search by Pokemon Name or ID</p>
             <p>
-              <input type="text" value={query} onChange={handleQuery} />
+              <input
+                id="pokemon_name_or_id"
+                name="pokemon_name_or_id"
+                type="text"
+                value={query}
+                onChange={handleQuery}
+              />
             </p>
           </label>
           <p>
