@@ -5,7 +5,7 @@ export default function SearchPokemon() {
   const [query, setQuery] = useState("");
   const [result, setResult] = useState("");
 
-  const pokeApi = "https://pokeapi.co/api/v2/pokemon/";
+  const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
 
   const handleQuery = (e) => {
     const { value } = e.target;
@@ -19,7 +19,7 @@ export default function SearchPokemon() {
         throw new Error("Please enter a Pokemon name or ID.");
       }
 
-      const response = await fetch(`${pokeApi}${query}`);
+      const response = await fetch(`${baseUrl}${query}`);
       const json = await response.json();
       setResult(json);
     } catch (error) {
