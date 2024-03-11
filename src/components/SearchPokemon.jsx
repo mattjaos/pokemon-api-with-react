@@ -31,7 +31,7 @@ export default function SearchPokemon() {
     }
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     debouncedFetch();
   };
