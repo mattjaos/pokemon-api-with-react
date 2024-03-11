@@ -10,7 +10,7 @@ export default function SearchPokemon() {
 
   const handleQuery = (e) => {
     const { value } = e.target;
-    setQuery(value.toLowerCase().trim());
+    setQuery(value);
   };
 
   const debouncedFetch = useDebounce(async () => {
@@ -19,7 +19,9 @@ export default function SearchPokemon() {
         throw new Error("Please enter a Pokemon name or ID.");
       }
 
-      const response = await fetch(`${baseUrl}${query}`);
+      const response = await fetch(
+        `${baseUrl}${query.toLocaleLowerCase().trim()}`
+      );
       const json = await response.json();
       setResult(json);
     } catch (error) {
