@@ -1,21 +1,31 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useRef, useMemo, useEffect } from "react";
+import useDebounce from "../hooks/useDebounce";
 import GetPokemon from "./GetPokemon";
 
 export default function SearchPokemon() {
+  const controllerRef = useRef();
   const [query, setQuery] = useState(null);
   const [result, setResult] = useState("");
+  const debouncedResult = useDebounce(result);
   const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
 
   const fetchPokemon = useMemo(
     () => async () => {
       if (query === null) return;
 
+      if (controllerRef.current) {
+        controllerRef.current.abort();
+      }
+
+      controllerRef.current = new AbortController();
+      const { signal } = controllerRef.current;
+
       try {
         if (query.length < 1) {
           throw new Error("Please enter a Pokemon name or ID.");
         }
 
-        const response = await fetch(`${baseUrl}${query}`);
+        const response = await fetch(`${baseUrl}${query}`, { signal });
         const json = await response.json();
         setResult(json);
       } catch (error) {
@@ -60,7 +70,7 @@ export default function SearchPokemon() {
           </p>
         </form>
       </div>
-      <GetPokemon result={result} />
+      <GetPokemon result={debouncedResult} />
     </>
   );
 }
